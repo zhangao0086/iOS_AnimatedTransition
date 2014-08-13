@@ -13,9 +13,16 @@ import UIKit
 
 class DetailViewController: UIViewController ,UIViewControllerTransitioningDelegate ,UIViewControllerAnimatedTransitioning {
     var modalPresentingType: ModalPresentingType?
+    var detailImage: UIImage?
     
+    @IBOutlet weak var detailImageView: UIImageView?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.detailImageView?.image = self.detailImage
     }
     
     deinit {

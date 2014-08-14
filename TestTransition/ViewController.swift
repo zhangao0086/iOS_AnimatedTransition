@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewControllerAnimatedTransitioning {
+class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewControllerAnimatedTransitioning
+/*,UIViewControllerInteractiveTransitioning*/ {
     var navigationOperation: UINavigationControllerOperation?
     var selectedIndex = 0
     var interactivePopTransition: UIPercentDrivenInteractiveTransition!

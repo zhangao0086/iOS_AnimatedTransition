@@ -494,6 +494,7 @@
 				18925B5D1994D35D000BEEA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18925B5E1994D35D000BEEA0 /* Build configuration list for PBXNativeTarget "TestTransitionTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +503,7 @@
 				18925B601994D35D000BEEA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

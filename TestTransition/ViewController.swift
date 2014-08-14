@@ -8,14 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewControllerAnimatedTransitioning ,UIViewControllerInteractiveTransitioning {
+class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewControllerAnimatedTransitioning {
     var navigationOperation: UINavigationControllerOperation?
     var selectedIndex = 0
-    
-    weak var transitionContext: UIViewControllerContextTransitioning?
-    weak var transitingView: UIView?
-    weak var transitingDestView: UIView?
-    var isTransiting: Bool = false
+    var interactivePopTransition: UIPercentDrivenInteractiveTransition!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,68 +42,66 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         println("\(progress)")
         if popRecognizer.state == UIGestureRecognizerState.Began {
             println("Began")
-            isTransiting = true
-//            self.interactivePopTransition = UIPercentDrivenInteractiveTransition()
+            self.interactivePopTransition = UIPercentDrivenInteractiveTransition()
             self.navigationController.popViewControllerAnimated(true)
         } else if popRecognizer.state == UIGestureRecognizerState.Changed {
-//            self.interactivePopTransition?.updateInteractiveTransition(progress)
-            updateWithPercent(progress)
+            self.interactivePopTransition!.updateInteractiveTransition(progress)
+//            updateWithPercent(progress)
             println("Changed")
         } else if popRecognizer.state == UIGestureRecognizerState.Ended || popRecognizer.state == UIGestureRecognizerState.Cancelled {
-//            if progress > 0.5 {
-//                self.interactivePopTransition?.finishInteractiveTransition()
-//            } else {
-//                self.interactivePopTransition?.cancelInteractiveTransition()
-//            }
-            finishBy(progress < 0.5)
+            if progress > 0.5 {
+                self.interactivePopTransition!.finishInteractiveTransition()
+            } else {
+                self.interactivePopTransition!.cancelInteractiveTransition()
+            }
+//            finishBy(progress < 0.5)
             println("Ended || Cancelled")
-            isTransiting = false
-//            self.interactivePopTransition = nil
+            self.interactivePopTransition = nil
         }
     }
     
     //UIViewControllerInteractiveTransitioning
-    func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning!) {
-        self.transitionContext = transitionContext
-        
-        let containerView = transitionContext.containerView()
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        
-        containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
-        
-        self.transitingView = fromViewController.view
-        self.transitingDestView = toViewController.view
-    }
-    
-    func updateWithPercent(percent: CGFloat) {
-        let scale = CGFloat(fabsf(Float(percent - CGFloat(1.0))))
-        transitingView?.transform = CGAffineTransformMakeScale(scale, scale)
-        transitionContext?.updateInteractiveTransition(percent)
-        self.transitingDestView?.alpha = percent
-    }
-    
-    func finishBy(cancelled: Bool) {
-        if cancelled {
-            UIView.animateWithDuration(0.4, animations: {
-                self.transitingView!.transform = CGAffineTransformIdentity
-                self.transitingDestView?.alpha = 0
-            }, completion: {completed in
-                self.transitionContext!.cancelInteractiveTransition()
-                self.transitionContext!.completeTransition(false)
-            })
-        } else {
-            UIView.animateWithDuration(0.4, animations: {
-                print(self.transitingView)
-                self.transitingView!.transform = CGAffineTransformMakeScale(0, 0)
-                self.transitingDestView?.alpha = 1
-                print(self.transitingView)
-            }, completion: {completed in
-                self.transitionContext!.finishInteractiveTransition()
-                self.transitionContext!.completeTransition(true)
-            })
-        }
-    }
+//    func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning!) {
+//        self.transitionContext = transitionContext
+//        
+//        let containerView = transitionContext.containerView()
+//        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+//        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+//        
+//        containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+//        
+//        self.transitingView = fromViewController.view
+//        self.transitingDestView = toViewController.view
+//    }
+//    
+//    func updateWithPercent(percent: CGFloat) {
+//        let scale = CGFloat(fabsf(Float(percent - CGFloat(1.0))))
+//        transitingView?.transform = CGAffineTransformMakeScale(scale, scale)
+//        transitionContext?.updateInteractiveTransition(percent)
+//        self.transitingDestView?.alpha = percent
+//    }
+//    
+//    func finishBy(cancelled: Bool) {
+//        if cancelled {
+//            UIView.animateWithDuration(0.4, animations: {
+//                self.transitingView!.transform = CGAffineTransformIdentity
+//                self.transitingDestView?.alpha = 0
+//            }, completion: {completed in
+//                self.transitionContext!.cancelInteractiveTransition()
+//                self.transitionContext!.completeTransition(false)
+//            })
+//        } else {
+//            UIView.animateWithDuration(0.4, animations: {
+//                print(self.transitingView)
+//                self.transitingView!.transform = CGAffineTransformMakeScale(0, 0)
+//                self.transitingDestView?.alpha = 1
+//                print(self.transitingView)
+//            }, completion: {completed in
+//                self.transitionContext!.finishInteractiveTransition()
+//                self.transitionContext!.completeTransition(true)
+//            })
+//        }
+//    }
 
     // UINavigationControllerDelegate
     func navigationController(navigationController: UINavigationController!, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController!, toViewController toVC: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
@@ -120,10 +114,10 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
     }
     
     func navigationController(navigationController: UINavigationController!, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning! {
-        if !self.isTransiting {
+        if self.interactivePopTransition == nil {
             return nil
         }
-        return self
+        return self.interactivePopTransition
     }
     
     //UIViewControllerTransitioningDelegate
@@ -142,11 +136,12 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         var destTransform: CGAffineTransform!
         
         var snapshotImageView: UIView!
+        //获取到当前选择的Button
         var originalView = self.view.viewWithTag(selectedIndex)
         
         if navigationOperation == UINavigationControllerOperation.Push {
-            snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+            snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
             detailVC = toViewController as DetailViewController
             fromView = fromViewController.view
             alpha = 0
@@ -166,7 +161,6 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         detailVC.detailImageView?.hidden = true
         
         containerView.addSubview(snapshotImageView)
-        println(snapshotImageView)
         
         UIView.animateWithDuration(transitionDuration(transitionContext), animations: {
             detailVC.view.transform = destTransform

@@ -38,7 +38,7 @@ class DetailViewController: UIViewController ,UIViewControllerTransitioningDeleg
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let modal = segue.destinationViewController as UIViewController
         modal.transitioningDelegate = self
     }
@@ -49,21 +49,21 @@ class DetailViewController: UIViewController ,UIViewControllerTransitioningDeleg
         return self
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning {
         modalPresentingType = ModalPresentingType.Dismiss
         return self
     }
     
     //UIViewControllerAnimatedTransitioning
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning!) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
         return 0.6
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning!) {
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
         
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         
         var destView: UIView!
         var destTransfrom = CGAffineTransformIdentity

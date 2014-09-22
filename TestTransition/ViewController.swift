@@ -17,12 +17,12 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController.delegate = self
-        self.navigationController.view.backgroundColor = UIColor.whiteColor()
+        self.navigationController?.delegate = self
+        self.navigationController!.view.backgroundColor = UIColor.whiteColor()
         
         let popRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: Selector("handlePopRecognizer:"))
         popRecognizer.edges = UIRectEdge.Left
-        self.navigationController.view.addGestureRecognizer(popRecognizer)
+        self.navigationController!.view.addGestureRecognizer(popRecognizer)
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,21 +30,21 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let detailVC = segue.destinationViewController as DetailViewController
         detailVC.detailImage = sender?.imageForState(UIControlState.Normal)
         selectedIndex = sender.tag
     }
     
     func handlePopRecognizer(popRecognizer: UIScreenEdgePanGestureRecognizer) {
-        var progress = popRecognizer.translationInView(navigationController.view).x / navigationController.view.bounds.size.width
+        var progress = popRecognizer.translationInView(navigationController!.view).x / navigationController!.view.bounds.size.width
         progress = min(1.0, max(0.0, progress))
         
         println("\(progress)")
         if popRecognizer.state == UIGestureRecognizerState.Began {
             println("Began")
             self.interactivePopTransition = UIPercentDrivenInteractiveTransition()
-            self.navigationController.popViewControllerAnimated(true)
+            self.navigationController!.popViewControllerAnimated(true)
         } else if popRecognizer.state == UIGestureRecognizerState.Changed {
             self.interactivePopTransition!.updateInteractiveTransition(progress)
 //            updateWithPercent(progress)
@@ -122,14 +122,14 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
     }
     
     //UIViewControllerTransitioningDelegate
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning!) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
         return 0.4
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning!) {
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
 
         var detailVC: DetailViewController!
         var fromView: UIView!

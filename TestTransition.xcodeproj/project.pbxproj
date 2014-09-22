@@ -10,7 +10,6 @@
 		18925B471994D35D000BEEA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18925B461994D35D000BEEA0 /* AppDelegate.swift */; };
 		18925B491994D35D000BEEA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18925B481994D35D000BEEA0 /* ViewController.swift */; };
 		18925B4E1994D35D000BEEA0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18925B4D1994D35D000BEEA0 /* Images.xcassets */; };
-		18925B5A1994D35D000BEEA0 /* TestTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18925B591994D35D000BEEA0 /* TestTransitionTests.swift */; };
 		18925B681994D410000BEEA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18925B671994D410000BEEA0 /* Main.storyboard */; };
 		18925B6A1994D495000BEEA0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18925B691994D495000BEEA0 /* DetailViewController.swift */; };
 		18925B9E199711FE000BEEA0 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18925B9D199711FE000BEEA0 /* ModalViewController.swift */; };
@@ -54,8 +53,6 @@
 		18925B481994D35D000BEEA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		18925B4D1994D35D000BEEA0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18925B531994D35D000BEEA0 /* TestTransitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestTransitionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		18925B581994D35D000BEEA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18925B591994D35D000BEEA0 /* TestTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTransitionTests.swift; sourceTree = "<group>"; };
 		18925B671994D410000BEEA0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		18925B691994D495000BEEA0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		18925B9D199711FE000BEEA0 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				18925B431994D35D000BEEA0 /* TestTransition */,
-				18925B561994D35D000BEEA0 /* TestTransitionTests */,
 				18925B421994D35D000BEEA0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,23 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				18925B451994D35D000BEEA0 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		18925B561994D35D000BEEA0 /* TestTransitionTests */ = {
-			isa = PBXGroup;
-			children = (
-				18925B591994D35D000BEEA0 /* TestTransitionTests.swift */,
-				18925B571994D35D000BEEA0 /* Supporting Files */,
-			);
-			path = TestTransitionTests;
-			sourceTree = "<group>";
-		};
-		18925B571994D35D000BEEA0 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				18925B581994D35D000BEEA0 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -248,7 +227,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18925B5A1994D35D000BEEA0 /* TestTransitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        let detailVC = segue.destinationViewController as DetailViewController
+        let detailVC = segue.destinationViewController as! DetailViewController
         detailVC.detailImage = sender?.imageForState(UIControlState.Normal)
         selectedIndex = sender.tag
     }
@@ -105,7 +105,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
 //    }
 
     // UINavigationControllerDelegate
-    func navigationController(navigationController: UINavigationController!, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController!, toViewController toVC: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 //        if operation == UINavigationControllerOperation.Push {
             navigationOperation = operation
             return self
@@ -114,7 +114,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
 //        return nil
     }
     
-    func navigationController(navigationController: UINavigationController!, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning! {
+    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.interactivePopTransition == nil {
             return nil
         }
@@ -143,7 +143,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         if navigationOperation == UINavigationControllerOperation.Push {
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
             snapshotImageView = originalView?.snapshotViewAfterScreenUpdates(false)
-            detailVC = toViewController as DetailViewController
+            detailVC = toViewController as! DetailViewController
             fromView = fromViewController.view
             alpha = 0
             detailVC.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
@@ -151,7 +151,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
             snapshotImageView.frame = originalView!.frame
         } else if navigationOperation == UINavigationControllerOperation.Pop {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
-            detailVC = fromViewController as DetailViewController
+            detailVC = fromViewController as! DetailViewController
             snapshotImageView = detailVC.detailImageView?.snapshotViewAfterScreenUpdates(false)
             fromView = toViewController.view
             // 如果IDE是Xcode6 Beta4+iOS8SDK，那么在此处设置为0，动画将会不被执行(不确定是哪里的Bug)

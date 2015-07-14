@@ -39,17 +39,17 @@ class DetailViewController: UIViewController ,UIViewControllerTransitioningDeleg
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        let modal = segue.destinationViewController as UIViewController
+        let modal = segue.destinationViewController as! UIViewController
         modal.transitioningDelegate = self
     }
     
     //UIViewControllerTransitioningDelegate
-    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         modalPresentingType = ModalPresentingType.Present
         return self
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning {
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         modalPresentingType = ModalPresentingType.Dismiss
         return self
     }

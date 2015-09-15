@@ -40,15 +40,15 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         var progress = popRecognizer.translationInView(navigationController!.view).x / navigationController!.view.bounds.size.width
         progress = min(1.0, max(0.0, progress))
         
-        println("\(progress)")
+        print("\(progress)")
         if popRecognizer.state == UIGestureRecognizerState.Began {
-            println("Began")
+            print("Began")
             self.interactivePopTransition = UIPercentDrivenInteractiveTransition()
             self.navigationController!.popViewControllerAnimated(true)
         } else if popRecognizer.state == UIGestureRecognizerState.Changed {
             self.interactivePopTransition!.updateInteractiveTransition(progress)
 //            updateWithPercent(progress)
-            println("Changed")
+            print("Changed")
         } else if popRecognizer.state == UIGestureRecognizerState.Ended || popRecognizer.state == UIGestureRecognizerState.Cancelled {
             if progress > 0.5 {
                 self.interactivePopTransition!.finishInteractiveTransition()
@@ -56,7 +56,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
                 self.interactivePopTransition!.cancelInteractiveTransition()
             }
 //            finishBy(progress < 0.5)
-            println("Ended || Cancelled")
+            print("Ended || Cancelled")
             self.interactivePopTransition = nil
         }
     }
@@ -122,12 +122,12 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
     }
     
     //UIViewControllerTransitioningDelegate
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.4
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView()!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
 
@@ -138,7 +138,7 @@ class ViewController: UIViewController ,UINavigationControllerDelegate ,UIViewCo
         
         var snapshotImageView: UIView!
         //获取到当前选择的Button
-        var originalView = self.view.viewWithTag(selectedIndex)
+        let originalView = self.view.viewWithTag(selectedIndex)
         
         if navigationOperation == UINavigationControllerOperation.Push {
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)

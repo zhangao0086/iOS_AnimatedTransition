@@ -26,7 +26,7 @@ class DetailViewController: UIViewController ,UIViewControllerTransitioningDeleg
     }
     
     deinit {
-        println("DetailVC deinit")
+        print("DetailVC deinit")
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,7 +39,7 @@ class DetailViewController: UIViewController ,UIViewControllerTransitioningDeleg
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        let modal = segue.destinationViewController as! UIViewController
+        let modal = segue.destinationViewController 
         modal.transitioningDelegate = self
     }
     
@@ -55,12 +55,12 @@ class DetailViewController: UIViewController ,UIViewControllerTransitioningDeleg
     }
     
     //UIViewControllerAnimatedTransitioning
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.6
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView()!
         
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
